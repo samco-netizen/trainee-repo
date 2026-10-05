@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Happy Birthday!</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--pink:#ff6fa5;--ink:#4a2c5a}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:Fredoka,system-ui,sans-serif;color:var(--ink);background:linear-gradient(180deg,#ffe3ec,#d9d2ff 40%,#c9f0e4 70%,#fff3b8) fixed;overflow-x:hidden}
+body.locked{overflow:hidden}
+section,footer{position:relative;z-index:1;padding:72px 20px;max-width:960px;margin:auto;text-align:center}
+h2{font-size:clamp(1.8rem,6vw,2.6rem);margin-bottom:6px}
+.sub{opacity:.75;margin-bottom:28px}
+.btn{font:inherit;font-weight:600;border:0;border-radius:99px;padding:14px 28px;background:var(--pink);color:#fff;cursor:pointer;box-shadow:0 6px 0 #d94b83;transition:transform .15s}
+.btn:hover{transform:translateY(-3px) rotate(-2deg)}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 #d94b83}
+:focus-visible{outline:3px solid #8f7cff;outline-offset:3px}
+.rv{opacity:0;transform:translateY(24px);transition:.7s}
+.rv.in{opacity:1;transform:none}
+#fx{position:fixed;inset:0;z-index:90;pointer-events:none}
+.balloon{position:fixed;bottom:-60px;z-index:0;font-size:2rem;opacity:.7;animation:rise linear infinite;pointer-events:none}
+@keyframes rise{to{transform:translateY(-115vh) rotate(12deg)}}
+/* gate */
+#gate{position:fixed;inset:0;z-index:80;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:20px;text-align:center;background:linear-gradient(160deg,#ffd9c2,#ffe3ec,#d9d2ff);transition:opacity .8s,visibility .8s}
+#gate.gone{opacity:0;visibility:hidden}
+#gate h1{font-size:clamp(1.6rem,6vw,2.4rem)}
+.count{display:flex;gap:10px}
+.count div{background:#fff;border-radius:22px;padding:14px 8px;min-width:68px;box-shadow:0 10px 24px #ff6fa533}
+.count b{display:block;font-size:2rem}
+.count small{font-size:.75rem;opacity:.7}
+/* hero */
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px}
+#hero h1{font-size:clamp(2.4rem,10vw,4.6rem);line-height:1.1;min-height:2.2em}
+#hero h1::after{content:"|";animation:blink .8s infinite}
+@keyframes blink{50%{opacity:0}}
+#line{font-family:Caveat,cursive;font-size:clamp(1.5rem,5vw,2.2rem);max-width:600px}
+#heart{background:none;border:0;font-size:3rem;cursor:pointer;animation:beat 1.2s infinite}
+@keyframes beat{50%{transform:scale(1.2)}}
+/* gallery */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:26px}
+.pol{background:#fff;padding:12px 12px 8px;border-radius:6px;box-shadow:0 10px 24px #4a2c5a26;transform:rotate(var(--r));transition:transform .25s;cursor:pointer;border:0;font:inherit;color:inherit}
+.pol:hover{transform:rotate(0) scale(1.06)}
+.pol img,.ph{width:100%;aspect-ratio:1;object-fit:cover;border-radius:3px;display:grid;place-items:center;font-size:3rem}
+.pol span{display:block;font-family:Caveat,cursive;font-size:1.4rem;margin-top:8px}
+#lb{position:fixed;inset:0;z-index:70;background:#4a2c5acc;display:none;place-items:center;padding:20px}
+#lb.on{display:grid}
+#lb .pol{max-width:min(90vw,480px);transform:rotate(0);cursor:default}
+/* quiz */
+.card{background:#fff;border-radius:28px;padding:26px 20px;max-width:520px;margin:auto;box-shadow:0 12px 30px #8f7cff33}
+.card h3{margin:8px 0 16px}
+.qn{font-size:.85rem;opacity:.6}
+.opt{display:block;width:100%;font:inherit;padding:12px;margin:8px 0;border-radius:16px;border:2px solid #d9d2ff;background:#faf8ff;cursor:pointer;transition:.15s}
+.opt:hover{transform:scale(1.03);border-color:var(--pink)}
+.opt.ok{background:#c9f0e4;border-color:#3cc9a0}
+.opt.no{background:#ffd0d8;border-color:#ff6f8a}
+.fb{min-height:1.6em;margin-top:8px;font-weight:600}
+/* messages */
+.msg{border-radius:24px;padding:22px;text-align:left;box-shadow:0 8px 20px #4a2c5a1a;transition:transform .2s}
+.msg:hover{transform:translateY(-6px) rotate(1deg)}
+.msg p{margin-bottom:10px}
+.msg b{font-family:Caveat,cursive;font-size:1.4rem}
+/* playlist */
+ol{list-style:none;padding:0;max-width:520px;margin:auto}
+.song{display:flex;align-items:center;gap:14px;background:#fff;border-radius:20px;padding:12px 16px;margin:10px 0;text-align:left;text-decoration:none;color:inherit;box-shadow:0 6px 16px #8f7cff26}
+.song i{font-style:normal;font-size:1.6rem}
+.song small{opacity:.65;display:block}
+/* cake */
+.cake{width:230px;margin:50px auto 20px;cursor:pointer}
+.candles{display:flex;gap:16px;justify-content:center;margin-bottom:-2px}
+.candle{width:9px;height:36px;border-radius:3px;position:relative;background:repeating-linear-gradient(45deg,#fff 0 6px,#8f7cff 6px 12px)}
+.flame{position:absolute;left:50%;top:-20px;width:14px;height:20px;margin-left:-7px;background:radial-gradient(#fff6b0,#ffb300);border-radius:50% 50% 50% 50%/60% 60% 40% 40%;opacity:0;transform:scale(0);transition:.3s;animation:flick .25s infinite alternate}
+.lit .flame{opacity:1;transform:scale(1)}
+@keyframes flick{to{transform:scale(.9) rotate(4deg)}}
+.tier{position:relative;height:52px;border-radius:14px 14px 8px 8px;margin:0 auto}
+.tier::before{content:"";position:absolute;inset:0 0 auto;height:18px;background:radial-gradient(circle at 10px 0,#fff 9px,transparent 10px) 0 0/20px 18px repeat-x}
+.t1{width:60%;background:#ffb3d1}.t2{width:80%;background:#ff9fc4}.t3{width:100%;background:#ff8ab6}
+#hint{min-height:1.6em;font-weight:600;margin-bottom:10px}
+.link{background:none;border:0;font:inherit;color:var(--pink);text-decoration:underline;cursor:pointer;margin:8px}
+#note{max-width:520px;margin:24px auto 0;display:none;font-family:Caveat,cursive;font-size:1.8rem;line-height:1.4}
+#note.on{display:block;animation:pop .7s}
+@keyframes pop{from{opacity:0;transform:scale(.8)}}
+#mus{position:fixed;top:14px;right:14px;z-index:60;display:none;width:46px;height:46px;border-radius:50%;border:0;background:#fff;font-size:1.3rem;cursor:pointer;box-shadow:0 6px 16px #4a2c5a33}
+#toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) scale(.8);z-index:95;background:#fff;border-radius:22px;padding:18px 22px;max-width:86vw;box-shadow:0 12px 30px #4a2c5a44;opacity:0;pointer-events:none;transition:.4s;font-family:Caveat,cursive;font-size:1.5rem}
+#toast.on{opacity:1;transform:translateX(-50%)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+<script>
+/* ============================ CONFIG ============================
+   Edit everything here. No need to touch the code below. */
+const CONFIG = {
+  name: "Hemaluneee!!🌙",                    // their name
+  from: "your Saraxxx",                     // your name
+  birthday: "2026-11-01T00:00:00",       // birthday date/time (YYYY-MM-DDTHH:MM:SS)
+  line: "You make every ordinary day feel like a celebration.", // your personal line
+  secret: "Psst... I love you more than all the cake in the world. 💖", // Easter egg
+  finalNote: "Happy Birthday! May every wish you just made come true. I'm so lucky to have you. 💕",
+  music: "",                             // optional: link to an .mp3 for background music
+  photos: [                              // src = photo file/URL (leave "" for a placeholder)
+    {src:"1790745022646.jpg", cap:"First Pic"},{src:"1790743220615.jpg", cap:"Where it all began"}, {src:"1790743773575.jpg", cap:"Our favorite day"},
+    {src:"IMG-20260815-WA0030.jpg", cap:"That silly moment"},  {src:"1790744584986.jpg", cap:"Road trip!"},
+    {src:"1790744037889.jpg", cap:"Secret Trip"},    {src:"1790745253735.jpg", cap:"Just us"},
+    {src:"IMG-20260815-WA0032.jpg", cap:"Temple"}
+  ],
+  quiz: [                                // answer = index (starting at 0) of the correct option
+    {q:"Where did we first meet?", options:["School","A party","Online","Work"], answer:0},
+    {q:"What's their favorite food?", options:["Pani Puri","Waffels","Biryani","Ice cream"], answer:2},
+    {q:"Their dream vacation?", options:["Bali","Maldives","Andaman","Dargeeling"], answer:1},
+    {q:"What makes them laugh the most?", options:["My Jokes","My Singing","My dancing","My Haircut"], answer:3},
+    {q:"Their favorite color?", options:["Pink","Blue","Green","Purple"], answer:1},
+    {q:"Favorite Actor?", options:["Ajith","Vijay","Suriya","Saran"], answer:3}
+  ],
+  messages: [                            // add or remove as many as you like
+    {name:"Naan dhan", text:"Innikachum kuli "},
+    {name:"Maligai Kada owner", text:"Ukaru ma veetu la ye vituran"},
+    {name:"Muthalagu", text:"Sollu ma hema"},
+    {name:"Anbana Amma", text:"Saaman kaluvi vei"},
+    {name:"Ungoppan(7hills)", text:"Innikachum seekaram college kalambu"},
+    {name:"Malikkkk", text:"Aiyoo!! orey Kora solla mudiyadhu"}
+  ],
+  songs: [                               // url is optional (YouTube/Spotify link)
+    {title:"Minnaley", artist:"Saran", url:"AUD-20260930-WA0009.mp3"},
+    {title:"Epadi vandhayo", artist:"Saran", url:"eppadi vandhayo.m4a.mp3"},
+    {title:"Kadhaippoma", artist:"Saran", url:"Kadhaippoma.mp3"}
+    
+
+  ]
+  
+};
+/* ========================== END CONFIG ========================== */
+</script>
+</head>
+<body class="locked">
+<canvas id="fx"></canvas>
+<button id="mus" aria-label="Toggle music">🎵</button>
+
+<div id="gate">
+  <h1>A surprise is waiting for you 🎁</h1>
+  <p id="gp">Counting down to the big day...</p>
+  <div class="count"><div><b id="d">0</b><small>days</small></div><div><b id="h">0</b><small>hours</small></div><div><b id="m">0</b><small>mins</small></div><div><b id="s">0</b><small>secs</small></div></div>
+  <button class="btn" id="open">Open your surprise</button>
+</div>
+
+<section id="hero">
+  <h1 id="ttl"></h1>
+  <p id="line"></p>
+  <button id="heart" aria-label="A little heart">💗</button>
+</section>
+
+<section class="rv"><h2>Our Memories 📸</h2><p class="sub">Tap a photo to see it bigger</p><div class="grid" id="gal"></div></section>
+
+<section class="rv"><h2>How well do you know us? 🧠</h2><p class="sub">Six quick questions</p><div class="card" id="quiz"></div></section>
+
+<section class="rv"><h2>Line For You ✨</h2><p class="sub">Messages just for you</p><div class="grid" id="msgs"></div></section>
+
+<section class="rv"><h2>Your birthday playlist 🎶</h2><p class="sub">Songs that remind me of you</p><ol id="songs"></ol></section>
+
+<section class="rv"><h2>SARAN 💌 HEMA </h2><p class="sub">HAPPY BIRTHDAY HEMA 🧿💕❤️‍🩹
+  7 kadal thaandi unakaga vandhen ye!!Hema itha na unga keta solliyea aganum nga neenga en lifela keadacha mega peariya treasurenea sollalam and na romba luckey ya feel panean nee yanna select pannathala கார்மேகம் உன் முகம்,
+அதில் மின்னல் மின்னிடும் பற்கள்.
+மழை போல சிரிப்பு,
+மாறாமல் மறையாமல் பெய்து விடு! this is my first kavithai unnakaga sonnathu evlo sanda potalum unnaitheaditha varum intha jeevan yana pannalum neenga tha yannaku nantha ungaluku so ithu namma seanthu celebrate pannura second birthday this is not a birthady thiruvizha for me and once again HAPPY BIRTHDAY MY DEAR HEMALUNEE🧿😘 and once agian this is for uஅன்பே உன்னை கண்டு வியந்தேன் 😌உன்னால் உலகை மறந்தேன் 😵‍💫காகிதம் எடுத்தேன் உன்னை வர்நிக்க 🤔அதர்க்கு பேனாவும் துணைநிற்க👀 பின்பு வார்த்தைகலை தேடியது மூலை மணம் 💞சொன்னது அவசியம் ஏதும் இல்லை💕 கண்டவுடன் காதல் வந்தது எனக்கு கண்கலாலே கவிதை சோள்வேன் உனக்கு😘❤️‍🩹</p><ol id="songs"></ol></section>
+
+<section class="rv" id="fin"><h2>Make a wish 🎂</h2><p class="sub">Tap the cake</p>
+  <div class="cake" id="cake"><div class="candles" id="cds"></div><div class="tier t1"></div><div class="tier t2"></div><div class="tier t3"></div></div>
+  <p id="hint">Tap the cake to light the candles</p>
+  <button class="link" id="mic" hidden>or blow into your mic 🎤</button>
+  <p id="note"></p>
+</section>
+
+<footer><p id="foot"></p></footer>
+
+<div id="lb"></div>
+<div id="toast"></div>
+
+<script>
+const C=CONFIG,$=s=>document.querySelector(s);
+document.title="Happy Birthday, "+C.name+"!";
+$("#line").textContent=C.line;
+$("#foot").textContent="Made with love by "+C.from+" 💕";
+
+/* confetti + fireworks */
+const cv=$("#fx"),cx=cv.getContext("2d"),cols=["#ff6fa5","#ffd23f","#5ed6b0","#8f7cff","#ff9a6c","#5cc8ff"];
+let P=[],run=false;
+function size(){cv.width=innerWidth;cv.height=innerHeight}size();addEventListener("resize",size);
+function burst(x,y,n=90,spark){for(let i=0;i<n;i++){const a=Math.random()*6.283,s=(spark?2:3)+Math.random()*(spark?5:7);
+P.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-(spark?0:4),g:spark?.05:.15,l:1,c:cols[i%6],w:spark?4:6+Math.random()*5,sp:spark})}
+if(!run){run=true;loop()}}
+function loop(){cx.clearRect(0,0,cv.width,cv.height);P=P.filter(p=>p.l>0);
+P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=p.g;p.vx*=.99;p.l-=p.sp?.012:.008;cx.globalAlpha=Math.max(p.l,0);cx.fillStyle=p.c;
+p.sp?(cx.beginPath(),cx.arc(p.x,p.y,p.w/2,0,7),cx.fill()):cx.fillRect(p.x,p.y,p.w,p.w*.6)});
+cx.globalAlpha=1;P.length?requestAnimationFrame(loop):run=false}
+
+/* balloons */
+["🎈","⭐","🎈","💖","🎈","✨","🎈","🎀"].forEach((e,i)=>{const b=document.createElement("span");b.className="balloon";b.textContent=e;
+b.style.cssText=`left:${8+i*12}%;animation-duration:${14+i*2}s;animation-delay:${-i*3}s`;document.body.appendChild(b)});
+
+/* countdown + unlock */
+let opened=false;
+function tick(){let t=new Date(C.birthday)-Date.now();const z=t<=0;t=Math.max(t,0);
+const v=[Math.floor(t/864e5),Math.floor(t/36e5)%24,Math.floor(t/6e4)%60,Math.floor(t/1e3)%60];
+["d","h","m","s"].forEach((k,i)=>$("#"+k).textContent=v[i]);
+if(z){$("#gp").textContent="It's time! 🎉";if(!opened&&!tick.z&&tick.was){unlock()}}tick.was=!z;tick.z=z}
+setInterval(tick,1000);tick();
+function unlock(){if(opened)return;opened=true;$("#gate").classList.add("gone");document.body.classList.remove("locked");
+burst(innerWidth/2,innerHeight/2,160);setTimeout(()=>burst(innerWidth*.2,innerHeight*.4,80),300);setTimeout(()=>burst(innerWidth*.8,innerHeight*.4,80),500);
+type($("#ttl"),"Happy Birthday, "+C.name+"!");if(C.music){$("#mus").style.display="block"}}
+$("#open").onclick=unlock;
+function type(el,t,i=0){el.textContent=t.slice(0,i);if(i<t.length)setTimeout(()=>type(el,t,i+1),70)}
+
+/* music */
+if(C.music){const a=new Audio(C.music);a.loop=true;$("#mus").onclick=function(){a.paused?(a.play(),this.textContent="🔊"):(a.pause(),this.textContent="🔇")}}
+
+/* easter egg */
+let hc=0;$("#heart").onclick=()=>{if(++hc>=5){hc=0;toast(C.secret);burst(innerWidth/2,innerHeight/2,100)}};
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("on");setTimeout(()=>e.classList.remove("on"),4500)}
+
+/* gallery + lightbox */
+const em=["🌸","🍓","🌈","🦋","🍰","⭐","💐","🎀"],bg=["#ffd9c2","#d9d2ff","#c9f0e4","#fff3b8","#ffe3ec"];
+const pic=(p,i)=>p.src?`<img src="${p.src}" alt="${p.cap}">`:`<div class="ph" style="background:${bg[i%5]}">${em[i%8]}</div>`;
+$("#gal").innerHTML=C.photos.map((p,i)=>`<button class="pol" data-i="${i}" style="--r:${[-4,3,-2,4,-3,2][i%6]}deg">${pic(p,i)}<span>${p.cap}</span></button>`).join("");
+$("#gal").onclick=e=>{const b=e.target.closest(".pol");if(!b)return;const i=+b.dataset.i,p=C.photos[i];
+$("#lb").innerHTML=`<div class="pol">${pic(p,i)}<span>${p.cap}</span></div>`;$("#lb").classList.add("on")};
+$("#lb").onclick=()=>$("#lb").classList.remove("on");
+addEventListener("keydown",e=>e.key==="Escape"&&$("#lb").classList.remove("on"));
+
+/* quiz */
+let qi=0,sc=0,lock=false;
+function showQ(){const q=C.quiz[qi],box=$("#quiz");
+if(!q){const r=sc/C.quiz.length;box.innerHTML=`<p style="font-size:3rem">${r>.7?"🏆":r>.4?"🥳":"🤗"}</p><h3>You scored ${sc} / ${C.quiz.length}</h3><p>${r>.7?"Wow, you know us so well!":r>.4?"Not bad at all, cutie!":"We'll need more quality time together!"}</p><br><button class="btn" id="again">Play again</button>`;
+if(r>.7)burst(innerWidth/2,innerHeight/2,100);$("#again").onclick=()=>{qi=sc=0;showQ()};return}
+box.innerHTML=`<p class="qn">Question ${qi+1} of ${C.quiz.length}</p><h3>${q.q}</h3>`+q.options.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join("")+`<p class="fb"></p>`;lock=false}
+$("#quiz").onclick=e=>{const b=e.target.closest(".opt");if(!b||lock)return;lock=true;const q=C.quiz[qi],i=+b.dataset.i,ok=i===q.answer;
+if(ok)sc++;b.classList.add(ok?"ok":"no");if(!ok)$("#quiz").querySelectorAll(".opt")[q.answer].classList.add("ok");
+$(".fb").textContent=ok?"Yes! You got it 🎉":"Aww, so close! 💔";setTimeout(()=>{qi++;showQ()},1300)};
+showQ();
+
+/* messages + playlist */
+const tint=["#ffe3ec","#fff3b8","#c9f0e4","#d9d2ff"];
+$("#msgs").innerHTML=C.messages.map((m,i)=>`<div class="msg" style="background:${tint[i%4]}"><p>${m.text}</p><b>- ${m.name}</b></div>`).join("");
+$("#songs").innerHTML=C.songs.map(s=>`<li><${s.url?`a href="${s.url}" target="_blank" rel="noopener"`:"div"} class="song"><i>🎵</i><span>${s.title}<small>${s.artist}</small></span></${s.url?"a":"div"}></li>`).join("");
+
+/* cake */
+$("#cds").innerHTML=Array(5).fill('<div class="candle"><span class="flame"></span></div>').join("");
+let stage=0;const hint=$("#hint");
+function blow(){if(stage!==1)return;stage=2;$("#cds").classList.remove("lit");$("#mic").hidden=true;hint.textContent="Your wish is on its way... ✨";
+for(let i=0;i<9;i++)setTimeout(()=>burst(innerWidth*(.15+Math.random()*.7),innerHeight*(.15+Math.random()*.4),70,true),i*350);
+setTimeout(()=>{$("#note").textContent=C.finalNote;$("#note").classList.add("on");$("#note").scrollIntoView({behavior:"smooth",block:"center"})},1500)}
+$("#cake").onclick=()=>{if(stage===0){stage=1;$("#cds").classList.add("lit");hint.textContent="Close your eyes, make a wish, then tap the cake to blow!";$("#mic").hidden=false}else blow()};
+$("#mic").onclick=async()=>{try{const s=await navigator.mediaDevices.getUserMedia({audio:true}),ac=new AudioContext(),an=ac.createAnalyser();
+ac.createMediaStreamSource(s).connect(an);const d=new Uint8Array(an.fftSize);hint.textContent="Blow now! 🌬️";
+(function chk(){if(stage!==1){s.getTracks().forEach(t=>t.stop());return}an.getByteTimeDomainData(d);let m=0;d.forEach(v=>m=Math.max(m,Math.abs(v-128)));m>70?blow():requestAnimationFrame(chk)})()}
+catch(e){hint.textContent="Mic isn't available, just tap the cake!"}};
+
+/* scroll reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add("in")),{threshold:.15});
+document.querySelectorAll(".rv").forEach(el=>io.observe(el));
+</script>
+</body></html>
